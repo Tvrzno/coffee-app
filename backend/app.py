@@ -1,10 +1,13 @@
 from flask import Flask
+from flask_cors import CORS
 from models import db
 from routes.home import home_bp
 from routes.small import small_bp
 from routes.api import api_bp
 
 app = Flask(__name__)
+CORS(app) 
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://mates:REDACTED@192.168.88.222:3306/coffee_app'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
