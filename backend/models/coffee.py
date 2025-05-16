@@ -1,4 +1,5 @@
 from models import db
+from sqlalchemy.orm import relationship
 
 # Definice modelu Coffee
 class Coffee(db.Model):
@@ -13,6 +14,8 @@ class Coffee(db.Model):
     photo = db.Column(db.LargeBinary)
     seller = db.Column(db.String(100))
     url = db.Column(db.String(100))
+
+    brews = relationship("Brew", back_populates="coffee")
 
     def to_dict(self):
         return {
