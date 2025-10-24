@@ -1,8 +1,14 @@
+import './HomePage.scss';
+
 export const HomePage = () => {
   return (
-    <>
-      <h2>BrewDiary</h2>
-      <p>Poslední záznamy</p>
-    </>
+    <main className="homePage">
+      <section className="homePage__hero">
+        <h1 className="homePage__header">BrewDiary</h1>
+      </section>
+      <section className="homePage__recordsWrap">
+        <h2>Poslední záznamy</h2>
+      </section>
+    </main>
   );
 };

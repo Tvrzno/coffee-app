@@ -1,0 +1,28 @@
+@use '../../styles/variables' as *;
+
+.homePage {
+  padding: 35px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+
+  &__hero {
+    flex: 0 0 20%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__header {
+    font-weight: 600;
+    font-size: 55px;
+    color: $primary-color;
+    margin: auto;
+  }
+
+  &__recordsWrap {
+    flex: 1;
+  }
+}
