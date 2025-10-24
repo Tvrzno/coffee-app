@@ -3,6 +3,8 @@ import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
 import { HomePage } from './pages/HomePage/HomePage';
 import App from './App.js';
+import { AddPage } from './pages/AddPage/AddPage';
+import { RecordsPage } from './pages/RecordsPage/RecordsPage';
 
 const router = createBrowserRouter([
   {
@@ -10,8 +12,16 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '',
+        index: true,
         element: <HomePage />,
+      },
+      {
+        path: 'add',
+        element: <AddPage />,
+      },
+      {
+        path: 'records',
+        element: <RecordsPage />,
       },
     ],
   },
