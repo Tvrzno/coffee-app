@@ -1,4 +1,4 @@
-@use './styles/variables' as *;
+@use './styles/variables' as v;
 
 * {
   margin: 0;
@@ -7,6 +7,10 @@
 }
 
 body {
-  font-family: $primary-font;
-  background-color: $additional-color;
+  font-family: v.$primary-font;
+  background-color: v.$additional-color;
+}
+
+.app {
+  padding-bottom: 80px;
 }

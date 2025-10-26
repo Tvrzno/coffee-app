@@ -1,0 +1,12 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+.button {
+  @include m.text;
+  width: 100%;
+  margin-top: 35px;
+  padding: 10px 20px;
+  border-radius: 100px;
+  border: none;
+  background-color: v.$secondary-color;
+}

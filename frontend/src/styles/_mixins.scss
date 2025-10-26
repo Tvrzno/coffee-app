@@ -1,0 +1,21 @@
+@use 'variables' as v;
+
+@mixin flex-main($gap: 35px, $padding: 35px) {
+  padding: $padding;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+@mixin hero-title {
+  font-weight: 600;
+  font-size: 40px;
+}
+
+@mixin text($weight: 400, $color: v.$primary-color) {
+  font-family: v.$primary-font;
+  font-size: 20px;
+  font-weight: $weight;
+  color: $color;
+}
