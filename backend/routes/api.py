@@ -14,6 +14,13 @@ def get_coffees():
     coffees = Coffee.query.all()
     return jsonify([coffee.to_dict() for coffee in coffees])
 
+@api_bp.route('/api/coffees/<int:coffee_id>', methods=['GET'])
+def get_coffee(coffee_id):
+    coffee = Coffee.query.get(coffee_id)
+    if coffee is None:
+        return jsonify({"error": "Coffee not found"}), 404
+    return jsonify(coffee.to_dict())
+
 @api_bp.route('/api/coffees', methods=['POST'])
 def add_coffee():
     try:
@@ -165,7 +172,7 @@ def last_5_joined_brews():
             selectinload(Brew.grinder),
             selectinload(Brew.brew_type),
         )
-        .order_by(Brew.creation_timestamp.desc())
+        .order_by(Brew.creation.desc())
         .limit(limit)
         .offset(offset)
     )
