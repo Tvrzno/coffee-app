@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use '../../styles/variables' as v;
 
 .navBar {
   position: fixed;
@@ -10,7 +10,7 @@
 
   &__links {
     width: 85%;
-    background-color: $primary-color;
+    background-color: v.$primary-color;
     margin: 25px auto;
     padding: 5px;
     border-radius: 100px;

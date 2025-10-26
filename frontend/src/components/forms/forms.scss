@@ -1,0 +1,37 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.form {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid v.$primary-color;
+  border-radius: v.$border-radius;
+  padding: v.$spacing-big v.$spacing-small;
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: v.$gap;
+    border: none;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 20px;
+
+  &__input {
+    @include m.text($color: v.$primary-color);
+    padding: 10px 20px;
+    border: 1px solid v.$primary-color;
+    border-radius: v.$border-radius;
+    width: 100%;
+  }
+
+  &__label {
+    @include m.text($weight: 600);
+  }
+}

@@ -1,0 +1,25 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.addPage {
+  @include m.flex-main(35px, 0);
+}
+
+.addLinks {
+  padding: 0 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+
+  &__link {
+    @include m.text;
+    width: 95%;
+    max-width: 400px;
+    padding: v.$spacing-small v.$spacing-big;
+    border-radius: 100px;
+    background-color: v.$secondary-color;
+    text-decoration: none;
+    text-align: center;
+  }
+}

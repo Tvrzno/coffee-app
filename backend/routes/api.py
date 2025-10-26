@@ -4,6 +4,8 @@ from models.grinder import Grinder
 from models.brew_type import Brew_type
 from models.brew import Brew
 from models import db
+from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 
 api_bp = Blueprint('api', __name__)
 
@@ -11,6 +13,13 @@ api_bp = Blueprint('api', __name__)
 def get_coffees():
     coffees = Coffee.query.all()
     return jsonify([coffee.to_dict() for coffee in coffees])
+
+@api_bp.route('/api/coffees/<int:coffee_id>', methods=['GET'])
+def get_coffee(coffee_id):
+    coffee = Coffee.query.get(coffee_id)
+    if coffee is None:
+        return jsonify({"error": "Coffee not found"}), 404
+    return jsonify(coffee.to_dict())
 
 @api_bp.route('/api/coffees', methods=['POST'])
 def add_coffee():
@@ -143,3 +152,46 @@ def add_brew():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@api_bp.route('/api/last_5_joined_brews', methods=['GET'])
+def last_5_joined_brews():
+    # jednoduchá paginace a filtry
+    limit = min(int(request.args.get("limit", 50)), 200)
+    offset = int(request.args.get("offset", 0))
+
+    # volitelné filtry
+    coffee_pk = request.args.get("coffee_pk")
+    grinder_pk = request.args.get("grinder_pk")
+    brew_type_pk = request.args.get("brew_type_pk")
+
+    stmt = (
+        select(Brew)
+        .options(
+            # efektivní eager loading bez N+1
+            selectinload(Brew.coffee),
+            selectinload(Brew.grinder),
+            selectinload(Brew.brew_type),
+        )
+        .order_by(Brew.creation.desc())
+        .limit(limit)
+        .offset(offset)
+    )
+
+    if coffee_pk:
+        stmt = stmt.where(Brew.coffee_pk == int(coffee_pk))
+    if grinder_pk:
+        stmt = stmt.where(Brew.grinder_pk == int(grinder_pk))
+    if brew_type_pk:
+        stmt = stmt.where(Brew.brew_type_pk == int(brew_type_pk))
+
+    brews = db.session.execute(stmt).scalars().all()
+
+    def serialize(b: Brew):
+        return {
+            **b.to_dict(),
+            "coffee": b.coffee.to_dict() if b.coffee else None,
+            "grinder": b.grinder.to_dict() if b.grinder else None,
+            "brew_type": b.brew_type.to_dict() if b.brew_type else None,
+        }
+
+    return jsonify([serialize(b) for b in brews]), 200

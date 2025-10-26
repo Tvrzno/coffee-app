@@ -1,0 +1,12 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.recordsPage {
+  @include m.flex-main;
+}
+
+.records {
+  display: flex;
+  flex-direction: column;
+  gap: v.$gap;
+}

@@ -1,0 +1,22 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.record {
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: v.$secondary-color;
+  padding: v.$spacing-small;
+  border-radius: v.$border-radius;
+
+  &__name {
+    @include m.text($weight: 600);
+  }
+
+  &__desc {
+    @include m.text;
+  }
+}

@@ -11,6 +11,7 @@ class Brew(db.Model):
     output_weight = db.Column(db.Float, nullable=False)
     extraction_time = db.Column(db.Time, nullable=True)
     note = db.Column(db.String(100), nullable=True)
+    creation_timestamp = db.Column(db.DateTime, nullable=False)
 
     # Cizí klíče
     brew_type_pk = db.Column(db.Integer, ForeignKey('brew_type.brew_type_pk'), nullable=False)
@@ -32,5 +33,6 @@ class Brew(db.Model):
             "note": self.note,
             "brew_type_pk": self.brew_type_pk,
             "coffee_pk": self.coffee_pk,
-            "grinder_pk": self.grinder_pk
+            "grinder_pk": self.grinder_pk,
+            "datetime" : self.creation_timestamp
         }

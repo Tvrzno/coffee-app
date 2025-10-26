@@ -1,14 +1,12 @@
-@use '../../styles/variables' as *;
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
 
 .homePage {
-  padding: 35px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  gap: 35px;
+  @include m.flex-main;
 
   &__hero {
     flex: 0 0 20%;
+    min-height: 120px;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -18,7 +16,7 @@
   &__header {
     font-weight: 600;
     font-size: 55px;
-    color: $primary-color;
+    color: v.$primary-color;
     margin: auto;
   }
 
