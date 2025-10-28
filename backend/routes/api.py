@@ -120,6 +120,13 @@ def get_brews():
     brews = Brew.query.all()
     return jsonify([brew.to_dict() for brew in brews])
 
+@api_bp.route('/api/brews/<int:brew_id>', methods=['GET'])
+def get_brew(brew_id):
+    brew = Brew.query.get(brew_id)
+    if brew is None:
+        return jsonify({"error": "Brew not found"}), 404
+    return jsonify(brew.to_dict())
+
 # Endpoint pro přidání nového záznamu Brew
 @api_bp.route('/api/brews', methods=['POST'])
 def add_brew():
