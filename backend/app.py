@@ -5,18 +5,24 @@ from models import db
 from routes.home import home_bp
 from routes.small import small_bp
 from routes.api import api_bp
+from config import Settings
 
 app = Flask(__name__)
 CORS(app) 
 
-db_url = os.environ.get("DATABASE_URL")
-if not db_url:
-    raise RuntimeError("DATABASE_URL is not set")
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Settings)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = db_url
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.init_app(app)
 
-db.init_app(app)
+    @app.route("/health")
+    def health():
+        return {"db": "ok"}
+
+    return app
+
+app = create_app()
 
 app.register_blueprint(home_bp)
 app.register_blueprint(small_bp)
