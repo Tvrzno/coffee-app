@@ -160,8 +160,8 @@ def add_brew():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@api_bp.route('/api/last_5_joined_brews', methods=['GET'])
-def last_5_joined_brews():
+@api_bp.route('/api/last_brews', methods=['GET'])
+def last_brews():
     # jednoduchá paginace a filtry
     limit = min(int(request.args.get("limit", 50)), 200)
     offset = int(request.args.get("offset", 0))
@@ -179,7 +179,7 @@ def last_5_joined_brews():
             selectinload(Brew.grinder),
             selectinload(Brew.brew_type),
         )
-        .order_by(Brew.creation.desc())
+        .order_by(Brew.creation_timestamp.desc())
         .limit(limit)
         .offset(offset)
     )
