@@ -19,8 +19,13 @@
     color: v.$primary-color;
     margin: auto;
   }
+}
 
-  &__recordsWrap {
-    flex: 1;
+.lastRecords {
+  flex: 1;
+
+  &__title {
+    @include m.text($weight: 600);
+    margin-bottom: 20px;
   }
 }
